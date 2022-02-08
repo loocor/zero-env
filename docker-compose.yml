@@ -88,8 +88,11 @@ services:
       context: ./grafana
     environment:
       - TZ=${TZ}
+    volumes:
+      - ${DATA_PATH_HOST}/grafana:/var/lib/grafana
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini  # 将 grafana 配置文件挂载到容器里
     ports:
-      - "${GRAFANA_PORT}:3000"                        # 设置容器3000端口映射指定宿主机端口，用于宿主机访问可视化web
+      - "${GRAFANA_PORT}:3000"                          # 设置容器3000端口映射指定宿主机端口，用于宿主机访问可视化web
     networks:
       - backend
     restart: always
